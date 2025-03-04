@@ -1,0 +1,31 @@
+const Modal = ({ onClose,heading,children }) => {
+  const handleOutsideClick = (e) => {
+    // If user clicks directly on the background overlay, close the modal
+    if (e.target.id === "modal-overlay") {
+      onClose();
+    }
+  };
+  return (
+    <div
+      id="modal-overlay"
+      className="absolute inset-0 flex items-center justify-center bg-zinc-950/85 "
+      onClick={handleOutsideClick} // Listen for clicks
+    >
+      <div
+        className="bg-white opacity-100 p-10 rounded-lg w-1/3 shadow-lg  "
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Header */}
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-xl font-bold">{heading}</h2>
+          <button onClick={onClose} className="text-gray-600 text-xl cursor-pointer">
+            &times;
+          </button>
+        </div>
+        {children}
+      </div>
+    </div>
+  );
+};
+
+export default Modal;

@@ -1,0 +1,27 @@
+export const Categories = [
+  "General",
+  "Shopping",
+  "LifeStyle",
+  "Education",
+  "PersonalCare",
+  "Transportation",
+  "DiningOut",
+  "Groceries",
+  "Bills",
+  "Entertainment",
+];
+export const Themes = [
+  "Green",
+  "Gray",
+  "Cyan",
+  "Orange",
+  "Purple",
+  "Red",
+  "Yellow",
+  "Indigo",
+  "Teal",
+  "Fuchsia",
+  "Blue",
+  "Lime",
+  "Pink",
+];
