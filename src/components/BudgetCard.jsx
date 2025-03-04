@@ -7,6 +7,7 @@ import { IoCaretForwardOutline } from "react-icons/io5";
 import { deleteBudget,editBudget } from "../store";
 import AddNewBudget from "./AddNewBudget";
 import Modal from "./Modal";
+import Panel from "./Panel";
 
 const BudgetCard = ({ budget }) => {
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ const BudgetCard = ({ budget }) => {
   };
 
   return (
-    <div className="p-6 bg-white shadow-md rounded-lg w-[95%] ">
+    <Panel className="w-[95%] ">
       <div className="flex justify-between items-center">
         <div className="flex gap-x-3 items-center">
           <div
@@ -106,7 +107,7 @@ const BudgetCard = ({ budget }) => {
         ))
       }
       </div>
-    </div>
+    </Panel>
   );
 };
 

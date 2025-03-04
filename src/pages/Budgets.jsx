@@ -3,6 +3,8 @@ import { useState } from "react";
 import BudgetCard from "../components/BudgetCard";
 import AddNewBudget from "../components/AddNewBudget";
 import Modal from "../components/Modal";
+import Panel from "../components/Panel";
+import BudgetPieChart from "../components/BudgetPieChart";
 
 const Budgets = () => {
   const [showModal, setShowModal] = useState(false);
@@ -15,10 +17,10 @@ const Budgets = () => {
       <div className="flex justify-between w-full">
         <h2 className="font-bold text-4xl">Budgets</h2>
         <button
-          className=" bg-black text-white px-5 py-3 rounded-md"
+          className=" bg-black text-white text-sm px-5 py-3 rounded-md "
           onClick={() => setShowModal(true)}
         >
-          +Add New Budget
+          <span className="text-md">+</span>Add New Budget
         </button>
         {showModal && (
           <Modal onClose={() => setShowModal(false)} heading={"Add New Budget"}>
@@ -32,11 +34,8 @@ const Budgets = () => {
           </p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-3 items-start max-w-full mt-5 ">
-            <div className="p-10 flex flex-col items-center gap-10 bg-white shadow-md rounded-lg ">
-              <div className="w-64 h-64 my-12 rounded-full border-[2vw] flex flex-col justify-center items-center ">
-                <span className="text-4xl font-medium text-gray-900">${totalSpent}</span>
-                <span className="font-medium text-gray-500">of ${totalMaxSpend} limit</span>
-              </div>
+            <Panel className="flex flex-col items-center gap-10  ">
+            <div className="flex-1 min-h-72 w-full"><BudgetPieChart budgets={Budgets} /></div>
               <div className="flex flex-col gap-3 w-full">
                 <h3 className="font-bold text-lg">Spending Summary</h3>
                 {
@@ -46,7 +45,7 @@ const Budgets = () => {
                   </div>)
                 }
               </div>
-            </div>
+            </Panel>
             <div className="flex flex-col gap-y-2 flex-grow col-span-2 w-full items-end">
               {Budgets.map((budget) => (
                 <BudgetCard budget={budget} key={budget.id} />

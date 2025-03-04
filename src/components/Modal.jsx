@@ -1,3 +1,5 @@
+import Panel from "./Panel";
+
 const Modal = ({ onClose,heading,children }) => {
   const handleOutsideClick = (e) => {
     // If user clicks directly on the background overlay, close the modal
@@ -11,8 +13,8 @@ const Modal = ({ onClose,heading,children }) => {
       className="absolute inset-0 flex items-center justify-center bg-zinc-950/85 "
       onClick={handleOutsideClick} // Listen for clicks
     >
-      <div
-        className="bg-white opacity-100 p-10 rounded-lg w-1/3 shadow-lg  "
+      <Panel
+        className="opacity-100 p-10 w-1/3 shadow-lg "
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -23,7 +25,7 @@ const Modal = ({ onClose,heading,children }) => {
           </button>
         </div>
         {children}
-      </div>
+      </Panel>
     </div>
   );
 };

@@ -12,10 +12,10 @@ const Pots = () => {
       <div className="flex justify-between w-full">
         <h2 className="font-bold text-4xl">Pots</h2>
         <button
-          className=" bg-black text-white px-5 py-3 rounded-md"
+          className=" bg-black text-white text-sm px-5 py-3 rounded-md"
           onClick={() => setShowModal(true)}
         >
-          +Add New Pot
+          <span className="text-md">+</span>Add New Pot
         </button>
         {showModal && (
           <Modal onClose={() => setShowModal(false)} heading={"Add New Pot"}>

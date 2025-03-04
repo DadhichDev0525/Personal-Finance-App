@@ -1,39 +1,165 @@
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { IoCaretForwardOutline } from "react-icons/io5";
+import { PiCurrencyCircleDollarFill } from "react-icons/pi";
+import Panel from "../components/Panel";
+import BudgetPieChart from "../components/BudgetPieChart";
 const OverviewPage = () => {
-  const transactions = useSelector(state=>state.transactions)
-  const {income,expanse} = transactions.reduce((acc,tx)=>{
-    const amount =Number(tx.amount)
-    if(amount >= 0){
-       acc.income += amount;
-    }else{
-       acc.expanse += Math.abs(amount)
-    }
-    return acc
-  },{income: 0, expanse: 0})
+  const transactions = useSelector((state) => state.transactions);
+  const pots = useSelector((state) => state.pots);
+  const budgets = useSelector((state)=>state.budgets)
+  const { income, expanse } = transactions.reduce(
+    (acc, tx) => {
+      const amount = Number(tx.amount);
+      if (amount >= 0) {
+        acc.income += amount;
+      } else {
+        acc.expanse += Math.abs(amount);
+      }
+      return acc;
+    },
+    { income: 0, expanse: 0 }
+  );
+  const potsBalance = pots.reduce((acc, pot) => acc + pot.balance, 0);
 
-
-  return <div className="w-full p-10">
-    <div className="flex justify-between w-full">
+  return (
+    <div className="w-full p-10">
+      <div className="flex justify-between w-full">
         <h2 className="font-bold text-4xl">Overview</h2>
         {/* <button className=" bg-black text-white px-2 py-3 rounded-md">
           Logout
         </button> */}
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 justify-between w-full my-5">
-        <div className="max-w-md p-6 bg-zinc-800 text-white shadow-md rounded-lg">
-            <p>Current Balance</p>
-            <p className="font-semibold text-4xl mt-2">${(income - expanse).toFixed(2)}</p>
-        </div>
-        <div className="max-w-md p-6 bg-white shadow-md rounded-lg">
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-3 justify-between w-full my-7">
+        <Panel className="md:max-w-md w-full lg:max-w-xl bg-zinc-800 text-white ">
+          <p>Current Balance</p>
+          <p className="font-semibold text-4xl mt-2">
+            ${(income - expanse).toFixed(2)}
+          </p>
+        </Panel>
+        <Panel className="md:max-w-md w-full lg:max-w-xl">
           <p className="text-gray-600 font-semibold">Income</p>
           <p className="font-semibold text-4xl mt-2">${income.toFixed(2)}</p>
-        </div>
-        <div className="max-w-md p-6 bg-white shadow-md rounded-lg">
-        <p className="text-gray-600 font-semibold">Expanse</p>
-        <p className="font-semibold text-4xl mt-2">${expanse.toFixed(2)}</p>
-        </div>
+        </Panel>
+        <Panel className="md:max-w-md w-full lg:max-w-xl">
+          <p className="text-gray-600 font-semibold">Expanse</p>
+          <p className="font-semibold text-4xl mt-2">${expanse.toFixed(2)}</p>
+        </Panel>
       </div>
-  </div>;
+      <div className="grid grid-cols-1 lg:grid-cols-2  gap-5 w-full my-5">
+        <Panel >
+          <div className="flex justify-between">
+            <h3 className="font-medium text-lg">Pots</h3>
+            <Link
+              to="/pots"
+              className="flex gap-1 items-center text-gray-700 text-sm font-medium"
+            >
+              See Details
+              <IoCaretForwardOutline />
+            </Link>
+          </div>
+          <div className="p-6 flex flex-col gap-5 md:flex-row ">
+            <div className="px-6 py-3 bg-orange-50 min-w-1/2  rounded-lg shadow flex items-center gap-x-3">
+              <div className="text-4xl">
+                <PiCurrencyCircleDollarFill />
+              </div>
+              <div>
+                <p className="text-gray-600 mb-2">Pots</p>
+                <p className="md:text-3xl text-xl font-semibold">${potsBalance}</p>
+              </div>
+            </div>
+            <div className="md:w-1/2 grid grid-cols-2 gap-2 ">
+              {pots.slice(0, 4).map((pot) => (
+                <div
+                  key={pot.id}
+                  className="border-l-4 border-orange-800 px-3 rounded-sm"
+                >
+                  <p className="text-sm text-gray-600">{pot.name}</p>
+                  <p className="text-lg font-medium">${pot.balance}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </Panel>
+        <Panel className='row-span-2'>
+        <div className="flex justify-between">
+            <h3 className="font-medium text-lg">Budgets</h3>
+            <Link
+              to="/budgets"
+              className="flex gap-1 items-center text-gray-700 text-sm font-medium"
+            >
+              See Details
+              <IoCaretForwardOutline />
+            </Link>
+          </div>
+          {
+            budgets.length === 0 ?
+            <p className="my-5 text-sm font-semibold text-gray-500">No Data Provided</p> :
+            <div className="flex justify-between flex-col md:flex-row mt-3">
+            <div className="flex-1 min-h-72"><BudgetPieChart budgets={budgets} /></div>
+            <div className="space-y-3 ">
+              {budgets.slice(0,5).map(budget=>(
+                <div
+                key={budget.id}
+                className="border-l-4 px-3 rounded-sm "
+                style={{borderColor:budget.theme}}
+              >
+                <p className="text-sm text-gray-600">{budget.category}</p>
+                <p className="text-lg font-medium">${budget.spent}</p>
+              </div>
+              ))}
+            </div>
+          </div>
+          }
+        </Panel>
+        <Panel className='row-span-3'>
+        <div className="flex justify-between">
+            <h3 className="font-medium text-lg">Transactions</h3>
+            <Link
+              to="/transactions"
+              className="flex gap-1 items-center text-gray-700 text-sm font-medium"
+            >
+              See Details
+              <IoCaretForwardOutline />
+            </Link>
+          </div>
+          {
+        transactions.length === 0 ? 
+        <p className="my-5 text-sm font-semibold text-gray-500">No Transactions Found</p> :
+        transactions.slice(0,5).map(tx=>(
+            <div key={tx.id} className="flex justify-between items-center px-4 py-2 border-b border-gray-400">
+                <div className="text-sm font-medium">{tx.name}</div>
+                <div className="flex flex-col  items-end">
+                <p
+                    className={`text-lg font-medium ${
+                      tx.amount >= 0 ? "text-green-600" : "text-red-600"
+                    }`}
+                  >
+                    {tx.amount >= 0
+                      ? `+$${tx.amount}`
+                      : `-$${Math.abs(tx.amount)}`}
+                  </p>
+                  <p className="text-xs text-gray-700">{tx.date}</p>
+                </div>
+            </div>
+        ))
+      }
+        </Panel>
+        <Panel >
+        <div className="flex justify-between">
+            <h3 className="font-medium text-lg">Recurring Bills</h3>
+            <Link
+              to="/recurringbills"
+              className="flex gap-1 items-center text-gray-700 text-sm font-medium"
+            >
+              See Details
+              <IoCaretForwardOutline />
+            </Link>
+          </div>
+        </Panel>
+      </div>
+    </div>
+  );
 };
 
 export default OverviewPage;

@@ -21,7 +21,7 @@ const router = createBrowserRouter([
         element : <Transactions />
       },
       {
-        path: '/budget',
+        path: '/budgets',
         element : <Budgets />
       },
       {

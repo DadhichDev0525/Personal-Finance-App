@@ -18,7 +18,7 @@ const Sidebar = () => {
   const LinkClass = "hover:text-white px-5 transition-all duration-500 ";
   return (
     <aside
-      className={`flex flex-col bg-gray-900 text-white min-h-screen py-6 rounded-r-lg transition-all  duration-500 ${
+      className={`flex flex-col bg-gray-900 text-white min-h-screen py-6 rounded-r-lg transition-all ease-in-out duration-500 ${
         isOpen ? "w-[20%] pr-6" : "min-w-[5%] "
       }`}
     >
@@ -47,7 +47,7 @@ const Sidebar = () => {
           </div>
         </NavLink>
         <NavLink
-          to="/budget"
+          to="/budgets"
           className={({ isActive }) => (isActive ? activeClass : LinkClass)}
         >
           <div className="flex items-center gap-3 ">

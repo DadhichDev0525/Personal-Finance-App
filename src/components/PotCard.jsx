@@ -6,6 +6,7 @@ import { deletePot } from "../store";
 import Modal from "./Modal";
 import AddNewPot from "./AddNewPot";
 import ManagePotFunds from "./ManagePotFunds";
+import Panel from "./Panel";
 
 
 const PotCard = ({ pot }) => {
@@ -21,7 +22,7 @@ const PotCard = ({ pot }) => {
   };
 
   return (
-    <div className="p-6 bg-white shadow-md rounded-lg max-w-md ">
+    <Panel className="max-w-md">
       <div className="flex justify-between items-center">
         <div className="flex gap-3 items-center">
           <div
@@ -62,7 +63,7 @@ const PotCard = ({ pot }) => {
       </div>
       <div className="flex justify-between pt-10">
         <button onClick={()=>setAddMoney(true)} className="bg-orange-50 py-2 w-[45%] rounded-md hover:bg-white hover:border cursor-pointer">
-          +Add Money
+        <span className="text-lg">+</span>Add Money
         </button>
         {addMoney && (
             <Modal onClose={()=>setAddMoney(false)} heading={`Add to "${pot.name}"`}>
@@ -78,7 +79,7 @@ const PotCard = ({ pot }) => {
             </Modal>
         )}
       </div>
-    </div>
+    </Panel>
   );
 };
 
