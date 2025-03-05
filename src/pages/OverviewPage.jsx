@@ -118,7 +118,7 @@ const OverviewPage = () => {
           </div>
           {
             budgets.length === 0 ?
-            <p className="my-5 text-sm font-semibold text-gray-500">No Data Provided</p> :
+            <p className="my-5 lg:h-36 text-sm font-semibold text-gray-500">No Data Provided</p> :
             <div className="flex justify-between flex-col md:flex-row mt-3">
             <div className="flex-1 min-h-72"><BudgetPieChart budgets={budgets} /></div>
             <div className="space-y-3 ">
@@ -149,7 +149,7 @@ const OverviewPage = () => {
           </div>
           {
         transactions.length === 0 ? 
-        <p className="my-5 text-sm font-semibold text-gray-500">No Transactions Found</p> :
+        <p className="my-5 lg:h-36 text-sm font-semibold text-gray-500">No Transactions Found</p> :
         <div className="my-5 ">
           {
              transactions.slice(0,5).map(tx=>(
