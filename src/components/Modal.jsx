@@ -10,7 +10,7 @@ const Modal = ({ onClose,heading,children }) => {
   return (
     <div
       id="modal-overlay"
-      className="absolute inset-0 flex items-center justify-center bg-zinc-950/85 "
+      className="fixed inset-0 flex items-center justify-center bg-zinc-950/85 "
       onClick={handleOutsideClick} // Listen for clicks
     >
       <Panel

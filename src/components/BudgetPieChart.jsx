@@ -21,7 +21,7 @@ const BudgetPieChart = ({budgets}) => {
     .join(", ");
 
   return (
-    <div className="flex  items-center justify-center p-10  h-72">
+    <div className="flex  items-center justify-center p-10 min-w-68 h-72">
       <div
         className="min-w-28 min-h-28 max-w-48 max-h-48 w-full h-full rounded-full mt-4 flex justify-center items-center "
         style={{

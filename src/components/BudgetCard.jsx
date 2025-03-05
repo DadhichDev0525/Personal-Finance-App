@@ -30,7 +30,7 @@ const BudgetCard = ({ budget }) => {
   };
 
   return (
-    <Panel className="w-[95%] ">
+    <Panel className="w-full">
       <div className="flex justify-between items-center">
         <div className="flex gap-x-3 items-center">
           <div

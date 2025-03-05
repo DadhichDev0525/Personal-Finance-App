@@ -10,8 +10,6 @@ import { BiSolidAddToQueue } from "react-icons/bi";
 const Budgets = () => {
   const [showModal, setShowModal] = useState(false);
   const Budgets = useSelector((state) => state.budgets);
-  const totalSpent = Budgets.reduce((acc,b)=>acc + Number(b.spent),0)
-  const totalMaxSpend = Budgets.reduce((acc,b)=>acc + Number(b.maxSpend),0)
 
   return (
     <div className="w-full p-10">
@@ -35,9 +33,9 @@ const Budgets = () => {
             You haven't created a Budget yet.
           </p>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-3 items-start max-w-full mt-5 ">
+          <div className="grid grid-cols-1 md:grid-cols-3 items-start w-full mt-5 gap-5 ">
             <Panel className="flex flex-col items-center gap-10  ">
-            <div className="flex-1 min-h-72 w-full"><BudgetPieChart budgets={Budgets} /></div>
+            <div className="flex-1 min-h-72 min-w-max w-full"><BudgetPieChart budgets={Budgets} /></div>
               <div className="flex flex-col gap-3 w-full">
                 <h3 className="font-bold text-lg">Spending Summary</h3>
                 {
@@ -48,7 +46,7 @@ const Budgets = () => {
                 }
               </div>
             </Panel>
-            <div className="flex flex-col gap-y-2 flex-grow col-span-2 w-full items-end">
+            <div className="flex flex-col gap-y-2 flex-grow col-span-2  items-end">
               {Budgets.map((budget) => (
                 <BudgetCard budget={budget} key={budget.id} />
               ))}
