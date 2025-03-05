@@ -56,6 +56,7 @@ const AddNewPot = ({ onClose, isEdit, pot }) => {
         <input
           type="number"
           name="targetAmount"
+          min={1}
           maxLength={30}
           id="amount"
           value={formData.targetAmount}

@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { IoCaretForwardOutline } from "react-icons/io5";
 import { PiCurrencyCircleDollarFill } from "react-icons/pi";
@@ -8,6 +9,25 @@ const OverviewPage = () => {
   const transactions = useSelector((state) => state.transactions);
   const pots = useSelector((state) => state.pots);
   const budgets = useSelector((state)=>state.budgets)
+  const recurringTransactions = useMemo(() => transactions.filter((tx) => tx.recurring),[transactions])
+  const today = new Date()
+  const{paidBills, upcomingBills, dueSoonBills} = recurringTransactions.reduce(
+    (acc,tx)=>{
+      const date = new Date(tx.date).getTime()
+      const amount = Math.abs(tx.amount)
+      const differenceInDays =Math.ceil((date - today.getTime()) / (1000 * 3600 * 24))
+      if(differenceInDays > 0 && differenceInDays < 4){
+        acc.dueSoonBills += amount
+      }
+      if(date <= today.getTime()){
+        acc.paidBills += amount
+      }else{
+        acc.upcomingBills += amount
+      }
+      return acc;
+    },
+    {paidBills :0, upcomingBills: 0, dueSoonBills: 0}
+  );
   const { income, expanse } = transactions.reduce(
     (acc, tx) => {
       const amount = Number(tx.amount);
@@ -34,7 +54,10 @@ const OverviewPage = () => {
         <Panel className="md:max-w-md w-full lg:max-w-xl bg-zinc-800 text-white ">
           <p>Current Balance</p>
           <p className="font-semibold text-4xl mt-2">
-            ${(income - expanse).toFixed(2)}
+            {(income - expanse) >= 0 ?
+               `$${(income - expanse).toFixed(2)}` :
+               `-$${(Math.abs(income - expanse)).toFixed(2)}`
+             }
           </p>
         </Panel>
         <Panel className="md:max-w-md w-full lg:max-w-xl">
@@ -105,7 +128,7 @@ const OverviewPage = () => {
                 style={{borderColor:budget.theme}}
               >
                 <p className="text-sm text-gray-600">{budget.category}</p>
-                <p className="text-lg font-medium">${budget.spent}</p>
+                <p className="text-lg font-medium">${Math.abs(budget.spent)}</p>
               </div>
               ))}
             </div>
@@ -126,23 +149,28 @@ const OverviewPage = () => {
           {
         transactions.length === 0 ? 
         <p className="my-5 text-sm font-semibold text-gray-500">No Transactions Found</p> :
-        transactions.slice(0,5).map(tx=>(
-            <div key={tx.id} className="flex justify-between items-center px-4 py-2 border-b border-gray-400">
-                <div className="text-sm font-medium">{tx.name}</div>
-                <div className="flex flex-col  items-end">
-                <p
-                    className={`text-lg font-medium ${
-                      tx.amount >= 0 ? "text-green-600" : "text-red-600"
-                    }`}
-                  >
-                    {tx.amount >= 0
-                      ? `+$${tx.amount}`
-                      : `-$${Math.abs(tx.amount)}`}
-                  </p>
-                  <p className="text-xs text-gray-700">{tx.date}</p>
-                </div>
-            </div>
-        ))
+        <div className="my-5">
+          {
+             transactions.slice(0,5).map(tx=>(
+              <div key={tx.id} className="flex justify-between items-center  py-2 border-b border-gray-300">
+                  <div className="text-sm font-medium">{tx.name}</div>
+                  <div className="flex flex-col  items-end">
+                  <p
+                      className={`text-lg font-medium ${
+                        tx.amount >= 0 ? "text-green-600" : "text-red-600"
+                      }`}
+                    >
+                      {tx.amount >= 0
+                        ? `+$${tx.amount}`
+                        : `-$${Math.abs(tx.amount)}`}
+                    </p>
+                    <p className="text-xs text-gray-700">{tx.date}</p>
+                  </div>
+              </div>
+          ))
+          }
+        </div>
+       
       }
         </Panel>
         <Panel >
@@ -155,6 +183,20 @@ const OverviewPage = () => {
               See Details
               <IoCaretForwardOutline />
             </Link>
+          </div>
+          <div className="w-full space-y-4 my-7">
+            <div className="flex justify-between items-center p-4 rounded-md border-l-4 border-green-700 bg-green-50 text-gray-500 text-sm font-medium">
+              <p>Paid Bills</p>
+              <p className="text-zinc-900 font-bold">${paidBills.toFixed(2)}</p>
+            </div>
+            <div className="flex justify-between items-center p-4 rounded-md border-l-4 border-red-700 bg-red-50 text-gray-500 text-sm font-medium">
+              <p>Total Upcoming</p>
+              <p className="text-zinc-900 font-bold">${upcomingBills.toFixed(2)}</p>
+            </div>
+            <div className="flex justify-between items-center p-4 rounded-md border-l-4 border-yellow-500 bg-yellow-50 text-gray-500 text-sm font-medium">
+              <p>Due Soon</p>
+              <p className="text-zinc-900 font-bold">${dueSoonBills.toFixed(2)}</p>
+            </div>
           </div>
         </Panel>
       </div>

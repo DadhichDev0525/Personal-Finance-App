@@ -73,7 +73,7 @@ const BudgetCard = ({ budget }) => {
           }}
         >
           <p className=" text-sm text-gray-700">Spent</p>
-          <p className="font-medium">${budget.spent.toFixed(2)}</p>
+          <p className="font-medium">{budget.spent >= 0 ? `$${budget.spent.toFixed(2)}`:`-$${Math.abs(budget.spent).toFixed(2)}`}</p>
         </div>
         <div className="flex flex-col w-1/2 border-l-4 px-3 py-1 rounded-xs border-orange-100">
           <p className=" text-sm text-gray-700">Free</p>
@@ -89,7 +89,7 @@ const BudgetCard = ({ budget }) => {
         filteredTransaction.length === 0 ? 
         <p className="my-5 text-sm text-gray-500">You haven't made any spending yet.</p> :
         filteredTransaction.slice(-3).map(tx=>(
-            <div key={tx.id} className="flex justify-between items-center px-4 py-2 border-b border-gray-400">
+            <div key={tx.id} className="flex justify-between items-center  py-2 border-b border-gray-300">
                 <div className="text-sm font-medium">{tx.name}</div>
                 <div className="flex flex-col  items-end">
                 <p

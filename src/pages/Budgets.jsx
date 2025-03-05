@@ -41,7 +41,7 @@ const Budgets = () => {
                 {
                   Budgets.map(budget=><div key={budget.id} className="flex justify-between px-2 py-4 border-l-4 rounded-xs" style={{borderColor:budget.theme.toLowerCase()}}>
                     <p className="text-sm font-bold text-gray-600">{budget.category}</p>
-                    <p className="text-sm font-medium text-gray-600"><span className="font-bold text-gray-950">${budget.spent.toFixed(2)}</span> of ${budget.maxSpend}</p>
+                    <p className="text-sm font-medium text-gray-600"><span className="font-bold text-gray-950">${Math.abs(budget.spent.toFixed(2))}</span> of ${budget.maxSpend}</p>
                   </div>)
                 }
               </div>

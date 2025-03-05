@@ -38,10 +38,10 @@ const Transactions = () => {
       <div className="flex justify-between w-full">
         <h2 className="font-bold text-4xl">Transactions</h2>
         <button
-          className=" bg-black text-white px-2 py-3 rounded-md"
+          className=" bg-black text-white text-sm px-2 py-3 rounded-md"
           onClick={() => setShowModal(true)}
         >
-          +Add New Transaction
+          <span className="text-md">+</span>Add New Transaction
         </button>
         {showModal && (
           <Modal
@@ -62,6 +62,7 @@ const Transactions = () => {
             className="border border-gray-500 rounded-md p-3 focus:outline-0 w-[30%]"
           />
         </div>
+        <div className="overflow-x-auto">
         <table className="w-full mt-5">
           <thead className=" border-b border-gray-400">
             <tr>
@@ -100,6 +101,7 @@ const Transactions = () => {
             )}
           </tbody>
         </table>
+        </div>
         <div className="flex justify-between items-center mt-5">
           <button
             onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
@@ -108,8 +110,19 @@ const Transactions = () => {
           >
             Previous
           </button>
-          <div className="font-semibold px-5 py-2 rounded-lg bg-black text-white">
-            {totalPages <= 1 ? currentPage : `${currentPage} of ${totalPages}`}
+          <div className="flex justify-center space-x-2">
+            {Array.from({length:totalPages},(_,i)=>i+1).map(page=>(
+              <button
+              key={page}
+              onClick={()=>setCurrentPage(page)}
+              className={`cursor-pointer px-2 rounded-md transition duration-200 ${
+                currentPage === page 
+                ? 'bg-zinc-900 text-white'
+                :'bg-gray-100 text-black hover:bg-gray-200'
+              } `}
+              >{page}
+              </button>
+            ))}
           </div>
           <button
             onClick={() =>

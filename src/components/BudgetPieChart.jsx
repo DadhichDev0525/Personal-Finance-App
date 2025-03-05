@@ -30,7 +30,7 @@ const BudgetPieChart = ({budgets}) => {
       >
         <div className="w-28 h-28 rounded-full bg-white flex flex-col justify-center items-center">
           <span className="text-3xl font-medium text-gray-900">
-            ${totalSpent}
+            ${Math.abs(totalSpent)}
           </span>
           <span className="font-medium text-xs text-gray-500">
             of ${totalMaxSpend} limit
