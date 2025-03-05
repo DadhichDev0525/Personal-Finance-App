@@ -50,7 +50,7 @@ const OverviewPage = () => {
           Logout
         </button> */}
       </div>
-      <div className="grid grid-cols-1 gap-3 md:grid-cols-3 justify-between w-full my-7">
+      <div className="grid grid-cols-1  gap-3 md:grid-cols-3 justify-between w-full my-7">
         <Panel className="md:max-w-md w-full lg:max-w-xl bg-zinc-800 text-white ">
           <p>Current Balance</p>
           <p className="font-semibold text-4xl mt-2">
@@ -69,7 +69,8 @@ const OverviewPage = () => {
           <p className="font-semibold text-4xl mt-2">${expanse.toFixed(2)}</p>
         </Panel>
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2  gap-5 w-full my-5">
+
+      <div className="grid grid-cols-1 items-start lg:grid-cols-2  gap-5 w-full my-5">
         <Panel >
           <div className="flex justify-between">
             <h3 className="font-medium text-lg">Pots</h3>
@@ -135,7 +136,7 @@ const OverviewPage = () => {
           </div>
           }
         </Panel>
-        <Panel className='row-span-3'>
+        <Panel className='row-span-2'>
         <div className="flex justify-between">
             <h3 className="font-medium text-lg">Transactions</h3>
             <Link
@@ -149,7 +150,7 @@ const OverviewPage = () => {
           {
         transactions.length === 0 ? 
         <p className="my-5 text-sm font-semibold text-gray-500">No Transactions Found</p> :
-        <div className="my-5">
+        <div className="my-5 ">
           {
              transactions.slice(0,5).map(tx=>(
               <div key={tx.id} className="flex justify-between items-center  py-2 border-b border-gray-300">

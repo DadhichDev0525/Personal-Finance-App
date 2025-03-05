@@ -25,3 +25,11 @@ export const Themes = [
   "Lime",
   "Pink",
 ];
+export const sortingOptions = [
+  "Latest",
+  "Oldest",
+  "Highest",
+  "Lowest",
+  "A-Z",
+  "Z-A",
+];
