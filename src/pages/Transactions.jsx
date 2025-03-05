@@ -4,6 +4,7 @@ import AddNewTransaction from "../components/AddNewTransaction";
 import Modal from "../components/Modal";
 import DropDown from "../components/DropDown";
 import { Categories, sortingOptions } from "../dropdownOptions";
+import { BiSolidAddToQueue } from "react-icons/bi";
 
 const Transactions = () => {
   const [val, setVal] = useState("");
@@ -69,7 +70,8 @@ const Transactions = () => {
           className=" bg-black text-white text-sm px-2 py-3 rounded-md"
           onClick={() => setShowModal(true)}
         >
-          <span className="text-md">+</span>Add New Transaction
+          <span className="text-md hidden sm:inline">+</span><span className="hidden sm:inline">Add New Transaction</span>
+          <span className="block text-lg px-2 sm:hidden"><BiSolidAddToQueue  /></span>
         </button>
         {showModal && (
           <Modal
@@ -156,7 +158,7 @@ const Transactions = () => {
           <button
             onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
             disabled={currentPage <= 1}
-            className="px-4 py-2 bg-gray-300 rounded-md disabled:opacity-50"
+            className={`px-4 py-2 bg-gray-300 rounded-md disabled:opacity-50 ${totalPages <= 1 && 'hidden'}`}
           >
             Previous
           </button>
@@ -180,7 +182,7 @@ const Transactions = () => {
               setCurrentPage((prev) => Math.min(prev + 1, totalPages))
             }
             disabled={totalPages === 0 || currentPage >= totalPages}
-            className="px-4 py-2 bg-gray-300 rounded-md disabled:opacity-50"
+            className={`px-4 py-2 bg-gray-300 rounded-md disabled:opacity-50 ${totalPages <= 1 && 'hidden'}`}
           >
             Next
           </button>

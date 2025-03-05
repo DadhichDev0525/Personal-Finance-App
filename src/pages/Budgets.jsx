@@ -5,6 +5,7 @@ import AddNewBudget from "../components/AddNewBudget";
 import Modal from "../components/Modal";
 import Panel from "../components/Panel";
 import BudgetPieChart from "../components/BudgetPieChart";
+import { BiSolidAddToQueue } from "react-icons/bi";
 
 const Budgets = () => {
   const [showModal, setShowModal] = useState(false);
@@ -20,7 +21,8 @@ const Budgets = () => {
           className=" bg-black text-white text-sm px-5 py-3 rounded-md "
           onClick={() => setShowModal(true)}
         >
-          <span className="text-md">+</span>Add New Budget
+          <span className="text-md hidden sm:inline">+</span><span className="hidden sm:inline">Add New Budget</span>
+          <span className="block text-lg px-2 sm:hidden"><BiSolidAddToQueue  /></span>
         </button>
         {showModal && (
           <Modal onClose={() => setShowModal(false)} heading={"Add New Budget"}>

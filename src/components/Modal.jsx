@@ -14,7 +14,7 @@ const Modal = ({ onClose,heading,children }) => {
       onClick={handleOutsideClick} // Listen for clicks
     >
       <Panel
-        className="opacity-100 p-10 w-1/3 shadow-lg "
+        className="opacity-100 p-10 w-1/3 shadow-lg min-w-2xs "
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}

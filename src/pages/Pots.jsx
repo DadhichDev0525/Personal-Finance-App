@@ -3,6 +3,7 @@ import { useState} from "react";
 import AddNewPot from "../components/AddNewPot";
 import PotCard from "../components/PotCard";
 import Modal from "../components/Modal";
+import { BiSolidAddToQueue } from "react-icons/bi";
 
 const Pots = () => {
   const [showModal, setShowModal] = useState(false);
@@ -15,7 +16,8 @@ const Pots = () => {
           className=" bg-black text-white text-sm px-5 py-3 rounded-md"
           onClick={() => setShowModal(true)}
         >
-          <span className="text-md">+</span>Add New Pot
+          <span className="text-md hidden sm:inline">+</span><span className="hidden sm:inline">Add New Pot</span>
+          <span className="block text-lg px-2 sm:hidden"><BiSolidAddToQueue  /></span>
         </button>
         {showModal && (
           <Modal onClose={() => setShowModal(false)} heading={"Add New Pot"}>

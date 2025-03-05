@@ -209,7 +209,7 @@ const RecurringBills = () => {
             <button
               onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
               disabled={currentPage <= 1}
-              className="px-4 py-2 bg-gray-300 rounded-md disabled:opacity-50"
+              className={`px-4 py-2 bg-gray-300 rounded-md disabled:opacity-50 ${totalPages <= 1 && 'hidden'}`}
             >
               Previous
             </button>
@@ -235,7 +235,7 @@ const RecurringBills = () => {
                 setCurrentPage((prev) => Math.min(prev + 1, totalPages))
               }
               disabled={totalPages === 0 || currentPage >= totalPages}
-              className="px-4 py-2 bg-gray-300 rounded-md disabled:opacity-50"
+              className={`px-4 py-2 bg-gray-300 rounded-md disabled:opacity-50 ${totalPages <= 1 && 'hidden'}`}
             >
               Next
             </button>
