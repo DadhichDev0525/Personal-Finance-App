@@ -10,11 +10,11 @@ import {TbArrowBigLeftLinesFilled} from "react-icons/tb";
 const Sidebar = ({isOpen, setIsOpen}) => {
   const activeClass_md ='w-[20%] bg-white rounded-t-lg border-b-6 border-teal-70 px-3 py-2 text-teal-700 transition-all duration-300'
   const activeClass_lg =
-    `${isOpen ? 'bg-white rounded  border-l-4 border-teal-700 px-5' : 'lg:mx-auto' }  text-teal-700 transition-all duration-300`;
-  const LinkClass = "hover:text-white lg:px-5 transition-all duration-300  ";
+    `${isOpen ? 'bg-white rounded  border-l-4 border-teal-700 px-5' : 'lg:mx-auto' }  text-teal-700 transition-all ease-in duration-300`;
+  const LinkClass = "hover:text-white lg:px-5 ";
   return (
     <aside
-      className={`fixed z-1 flex items-center pt-3 bottom-0 w-full  bg-gray-900 text-white  transition ease-in-out duration-500 
+      className={`fixed z-1 flex items-center pt-3 bottom-0 w-full  bg-gray-900 text-white  transition  duration-500 
         lg:top-0 lg:left-0 lg:h-screen lg:rounded-r-lg lg:py-6 lg:flex-col lg:w-[5%] lg:items-baseline
         ${
         isOpen ? " lg:w-[20%] lg:max-w-[250px] lg:pr-6" : "lg:min-w-[5%] "

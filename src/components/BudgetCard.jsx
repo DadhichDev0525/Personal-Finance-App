@@ -56,9 +56,9 @@ const BudgetCard = ({ budget }) => {
       <p className="my-5 text-sm text-gray-500">
         Maximum of ${budget.maxSpend}
       </p>
-      <div className=" bg-orange-100 h-5 rounded-md mt-5">
+      <div className=" bg-orange-100 h-5  rounded-md mt-5">
         <div
-          className="h-full rounded-md"
+          className="h-full max-w-full rounded-md"
           style={{
             backgroundColor: color,
             width: `${spendPercentage}%`,

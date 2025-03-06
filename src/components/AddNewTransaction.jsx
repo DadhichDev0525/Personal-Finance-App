@@ -16,28 +16,57 @@ const AddNewTransaction = ({ onClose }) => {
   });
 
   const handleChange = (e) => {
-    const target = e.target
-    setFormData({
-      ...formData,
-      [target.name]: target.type === 'checkbox' ? target.checked : target.value,
-    });
-    console.log({
-      ...formData,
-      [target.name]: target.type === 'checkbox' ? target.checked : target.value,
-    })
+    const { name, value, type, checked } = e.target;
+
+    if (type === "date") {
+      let formattedValue = value;
+
+      if (/^\d{2}\/\d{2}\/\d{4}$/.test(value)) {
+        console.log('formating')
+        const [month, day, year] = value.split("/");
+        if (!year || year.length > 4) return;
+        formattedValue = `${year}-${month}-${day}`;
+      }
+      const isValid =
+        /^\d{4}-\d{2}-\d{2}$/.test(value) &&
+        !isNaN(new Date(formattedValue).getTime());
+      if (isValid) {
+        setFormData((prev) => ({
+          ...prev,
+          [name]: formattedValue,
+        }));
+      }
+    }else if (type === "number") {
+      // Remove non-numeric characters
+      let newValue = value.replace(/[^\d-]/g, "");
+      newValue = newValue.replace(/(?!^)-/g, "");
+  
+      // Limit to 9 digits
+      if (newValue.length > 9) {
+        newValue = newValue.slice(0, 9);
+      }
+  
+      setFormData((prev) => ({
+        ...prev,
+        [name]: newValue,
+      }));
+    }else {
+      setFormData({
+        ...formData,
+        [name]: type === "checkbox" ? checked : value,
+      });
+    }
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    const amount = Number(formData.amount)
-    console.log(amount >= 0 ? false : formData.recurring)
+    const amount = Number(formData.amount);
 
     // Create new transaction object
     const newTransaction = {
       id: nanoid(),
       ...formData,
-      recurring : amount >= 0 ? false : formData.recurring,
+      recurring: amount >= 0 ? false : formData.recurring,
     };
-    console.log("Recurring:", newTransaction.recurring);
 
     dispatch(addTransaction(newTransaction));
 
@@ -68,6 +97,8 @@ const AddNewTransaction = ({ onClose }) => {
         type="date"
         name="date"
         id="date"
+        min={new Date().toISOString().split("T")[0]} 
+        max = '2099-12-31'
         value={formData.date}
         onChange={handleChange}
         className="w-full p-2 border rounded-md mb-2"
@@ -86,6 +117,7 @@ const AddNewTransaction = ({ onClose }) => {
         type="number"
         name="amount"
         id="amount"
+        max={999999999}
         value={formData.amount}
         onChange={handleChange}
         placeholder="Amount"

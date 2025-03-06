@@ -33,7 +33,7 @@ const Budgets = () => {
             You haven't created a Budget yet.
           </p>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-3 items-start w-full mt-5 gap-5 ">
+          <div className="flex flex-col md:flex-row md:items-start w-full mt-5 gap-5 ">
             <Panel className="flex flex-col items-center gap-10  ">
             <div className="flex-1 min-h-72 min-w-max w-full"><BudgetPieChart budgets={Budgets} /></div>
               <div className="flex flex-col gap-3 w-full">

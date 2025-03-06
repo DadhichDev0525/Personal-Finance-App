@@ -21,14 +21,14 @@ const BudgetPieChart = ({budgets}) => {
     .join(", ");
 
   return (
-    <div className="flex  items-center justify-center p-10 min-w-68 h-72">
+    <div className="flex  items-center justify-center py-10 min-w-76 h-76">
       <div
-        className="min-w-28 min-h-28 max-w-48 max-h-48 w-full h-full rounded-full mt-4 flex justify-center items-center "
+        className="min-w-32 min-h-32 max-w-56 max-h-56 w-full h-full rounded-full mt-4 flex justify-center items-center "
         style={{
           background: `conic-gradient(${gradient})`,
         }}
       >
-        <div className="w-28 h-28 rounded-full bg-white flex flex-col justify-center items-center">
+        <div className="max-w-40 max-h-40 min-w-28 min-h-28 w-full h-full rounded-full bg-white flex flex-col justify-center items-center">
           <span className="text-3xl font-medium text-gray-900">
             ${Math.abs(totalSpent)}
           </span>
