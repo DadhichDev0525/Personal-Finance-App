@@ -13,7 +13,7 @@ const ManagePotFunds = ({ pot, onClose, mode }) => {
   const handleChange = (e) => {
     let value = e.target.value;
     if (value === "") {
-      setAmount("");
+      setAmount(0);
       return;
     }
     value = Number(value)
